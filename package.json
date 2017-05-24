@@ -1,0 +1,19 @@
+{
+  "name": "lyrpd_site",
+  "version": "1.0.0",
+  "description": "Love Your Rescue Pet Day (LYRPD) has been a day where various businesses all over the city commit to donating 10% of their sales to APA!. While it has been a great fundraiser for us in the past, we wanted to make it more of an interactive fundraiser. ",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shaverda/LYRPD_site.git"
+  },
+  "author": "Walter Moreira and Shelby Haverda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shaverda/LYRPD_site/issues"
+  },
+  "homepage": "https://github.com/Shaverda/LYRPD_site#readme"
+}
