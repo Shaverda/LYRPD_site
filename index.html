@@ -20,6 +20,13 @@
         margin: 0;
         padding: 0;
     }
+   	.notbold {
+   		font-weight:normal
+   	}
+   	.info_img {
+   		width: 150px;
+   		height: 150px;
+   	}
     </style>
 </head>
 
@@ -29,8 +36,8 @@
     var map;
 
     var data = [
-        ["Peter Pan Mini Golf", 30.2673334, -97.7647861, "https://www.facebook.com/PeterPanMiniGolf/", "http://peterpanminigolf.com/", "make bandanas"],
-        ["ZACH Theatre", 30.2570869, -97.7584653, "https://www.facebook.com/zachtheatre/", "http://zachtheatre.org/", "conduct a play"]
+        ["Peter Pan Mini Golf", "https://www.facebook.com/PeterPanMiniGolf/", "http://peterpanminigolf.com/", "make bandanas", "./images/peterpan.jpg"],
+        ["ZACH Theatre", "https://www.facebook.com/zachtheatre/", "http://zachtheatre.org/", "conduct a play", "./images/zach.jpg"]
     ];
 
     function initMap() {
@@ -61,6 +68,14 @@
                             location: results[0].geometry.location
                         }
                     });
+                    var contentString = 
+                    	`<div style='float:left'><img class = "info_img" src=${element[4]}></div>
+                    	<div style='float:right; padding: 10px;'>
+                    	<h2><a href="${element[1]}">${element[0]}</a></h2><hr>
+                    	<h4>Activity:  <span class='notbold'>${element[3]}</span> </h4>
+                    	<h4><a href="${element[2]}">Website</a></h4>
+                    	</div>`
+                    	;
                     var infowindow = new google.maps.InfoWindow({
                         content: contentString
                     });
@@ -70,7 +85,6 @@
                 }
             }
         });
-        var contentString = "hi!";
 
 
 
