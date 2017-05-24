@@ -36,8 +36,8 @@
     var map;
 
     var data = [
-        ["Peter Pan Mini Golf", "https://www.facebook.com/PeterPanMiniGolf/", "http://peterpanminigolf.com/", "make bandanas", "./images/peterpan.jpg"],
-        ["ZACH Theatre", "https://www.facebook.com/zachtheatre/", "http://zachtheatre.org/", "conduct a play", "./images/zach.jpg"]
+        ["Peter Pan Mini Golf", "https://www.facebook.com/PeterPanMiniGolf/", "http://peterpanminigolf.com/", "make bandanas", "../static/images/peterpan.jpg"],
+        ["ZACH Theatre", "https://www.facebook.com/zachtheatre/", "http://zachtheatre.org/", "conduct a play", "../static/images/zach.jpg"]
     ];
 
     function initMap() {
@@ -62,7 +62,7 @@
             service.textSearch(request, callback);
 
             var icon = {
-                url: 'dog-paw.png',
+                url: '../static/images/dog-paw.png',
                 scaledSize: new google.maps.Size(50, 60),
                 origin: new google.maps.Point(0, 0),
                 anchor: new google.maps.Point(25, 60)
