@@ -49,6 +49,8 @@
             zoom: 16
         });
 
+        var infowindow = new google.maps.InfoWindow();
+       
         data.forEach((element) => {
             console.log(element);
             var request = {
@@ -84,10 +86,8 @@
                     	<h4><a href="${element[2]}">Website</a></h4>
                     	</div>`
                     	;
-                    var infowindow = new google.maps.InfoWindow({
-                        content: contentString
-                    });
                     google.maps.event.addDomListener(marker, 'click', function() {
+                        infowindow.setContent(contentString);
                         infowindow.open(map, marker);
                     });
                 }
