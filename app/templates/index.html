@@ -70,7 +70,7 @@
             service.textSearch(request, callback);
 
             icon = {
-                url: '../static/images/dog-paw.png',
+                url: 'static/images/dog-paw.png',
                 scaledSize: new google.maps.Size(50, 60),
                 origin: new google.maps.Point(0, 0),
                 anchor: new google.maps.Point(25, 60)
@@ -87,7 +87,7 @@
                         }
                     });
                     var contentString = 
-                    	`<div style='float:left'><img class = "info_img" src=${element[4]}></div>
+                    	`<div style='float:left'><img class = "info_img" src="static/images/${element[4]}"></div>
                     	<div style='float:right; padding: 10px;'>
                     	<h2><a href="${element[1]}">${element[0]}</a></h2><hr>
                     	<h4>Activity:  <span class='notbold'>${element[3]}</span> </h4>
