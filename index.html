@@ -1,40 +1,110 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
-      /* Always set the map height explicitly to define the size of the div
+    /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
+    
+    #map {
         height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
+    }
+    /* Optional: Makes the sample page fill the window. */
+    
+    html,
+    body {
         height: 100%;
         margin: 0;
         padding: 0;
-      }
+    }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="map"></div>
     <script>
-      var map;
-      function initMap() {
+    var map;
+
+    var data = [
+        ["Peter Pan Mini Golf", "1207 Barton Springs Rd, Austin, TX 78704", 30.2673334, -97.7647861, "https://www.facebook.com/PeterPanMiniGolf/", "http://peterpanminigolf.com/", "make bandanas"],
+        ["ZACH Theatre", "202 S Lamar Blvd, Austin, TX 78704", 30.2570869, -97.7584653, "https://www.facebook.com/zachtheatre/", "http://zachtheatre.org/", "conduct a play"]
+    ];
+
+    function initMap() {
+        var contentString = "hi!";
+
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 30.26, lng: -97.75},
-          zoom: 16
-        });
-        var marker = new google.maps.Marker({
-          position: {lat: 30.26, lng: -97.75},
-          map: map
+            center: {
+                lat: 30.26,
+                lng: -97.75
+            },
+            zoom: 16
         });
 
-      }
+        var geocoder = new google.maps.Geocoder();
+
+        data.forEach((element) => {
+            console.log(element);
+            var address = element[1];
+            geocodeAddress(geocoder, map, address);
+            // var marker = new google.maps.Marker({
+            //     position: {
+            //         lat: element[1],
+            //         lng: element[2]
+            //     },
+            //     map: map
+            // });
+        });
+
+
+        function geocodeAddress(geocoder, resultsMap, address) {
+            console.log(address);
+            geocoder.geocode({
+                'address': address
+            }, function(results, status) {
+            	console.log(results[0].place_id);
+                if (status === 'OK') {
+                    // resultsMap.setCenter(results[0].geometry.location);
+                    // var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+                    // var icon = {
+                    //     url: "http://i83.photobucket.com/albums/j309/typically/dancing_banana_by_legoman824-d57biz.gif",
+                    //     scaledSize: new google.maps.Size(80, 50),
+                    //     origin: new google.maps.Point(0, 0),
+                    //     anchor: new google.maps.Point(0, 0)
+                    // };
+
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        animation: google.maps.Animation.DROP,
+                        position: results[0].geometry.location,
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+                google.maps.event.addDomListener(marker, 'click', function() {
+                    infowindow.open(map, marker);
+                });
+            });
+        }
+
+        // var marker = new google.maps.Marker({
+        //     position: {
+        //         lat: 30.26,
+        //         lng: -97.75
+        //     },
+        //     map: map
+        // });
+
+
+    }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArRK9f93LhRzxjXUDHhBv540kA77XpPhw&callback=initMap"
-    async defer></script>
-  </body>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArRK9f93LhRzxjXUDHhBv540kA77XpPhw&callback=initMap"></script>
+</body>
+
 </html>
