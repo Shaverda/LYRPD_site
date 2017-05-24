@@ -46,10 +46,7 @@
     <script>
     var map, icon;
 
-    var data = [
-        ["Peter Pan Mini Golf", "https://www.facebook.com/PeterPanMiniGolf/", "http://peterpanminigolf.com/", "make bandanas", "../static/images/peterpan.jpg"],
-        ["ZACH Theatre", "https://www.facebook.com/zachtheatre/", "http://zachtheatre.org/", "conduct a play", "../static/images/zach.jpg"]
-    ];
+    var data = {{data|safe}};
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -112,7 +109,7 @@
 
     }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArRK9f93LhRzxjXUDHhBv540kA77XpPhw&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{maps_key}}&libraries=places&callback=initMap" async defer></script>
 </body>
 
 </html>

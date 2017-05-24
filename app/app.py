@@ -20,21 +20,24 @@ def get_env_vars(*names):
         sys.exit(1)
 
 
-SHEET, FOLDER = get_env_vars('SHEET', 'FOLDER')
+MAPS_KEY, SHEET, FOLDER, GOOGLE_CREDENTIALS = get_env_vars(
+    'MAPS_KEY', 'SHEET', 'FOLDER', 'GOOGLE_CREDENTIALS')
 
 
 app = Flask(__name__)
 
-app.config.update(
-    DEBUG = True,
-    SECRET_KEY = 'apa!'
-)
 
+data = [
+        ["Peter Pan Mini Golf", "https://www.facebook.com/PeterPanMiniGolf/", "http://peterpanminigolf.com/", "make bandanas", "../static/images/peterpan.jpg"],
+        ["ZACH Theatre", "https://www.facebook.com/zachtheatre/", "http://zachtheatre.org/", "conduct a play", "../static/images/zach.jpg"]
+]
 
 @app.route('/')
 def main():
     return render_template(
-        'index.html')
+        'index.html',
+        maps_key=MAPS_KEY,
+        data=json.dumps(data))
     #     sheet_link='https://docs.google.com/spreadsheets/d/{}'.format(SHEET),
     #     folder_link='https://drive.google.com/drive/u/1/folders/{}'.format(FOLDER)
     # )

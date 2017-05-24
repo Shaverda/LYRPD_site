@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  lyrpd:
+    build: .
+    volumes:
+      - ./app:/app
+      - .:/data
+    ports:
+      - "1234:5000"
+    environment:
+      MAPS_KEY: your_google_maps_key
+      SHEET: google_sheet_with_business_info
+      FOLDER: folder_with_business_pictures
+      GOOGLE_CREDENTIALS: path_to_google_credentials_in_container
+    network_mode: "bridge"
