@@ -59,10 +59,18 @@
             var service = new google.maps.places.PlacesService(map);
             service.textSearch(request, callback);
 
+            var icon = {
+                url: 'dog-paw.png',
+                scaledSize: new google.maps.Size(50, 60),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(25, 60)
+            };
+          
             function callback(results, status) {
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
                     var marker = new google.maps.Marker({
-                        map: map,
+                      map: map,
+                      icon: icon,
                         place: {
                             placeId: results[0].place_id,
                             location: results[0].geometry.location
