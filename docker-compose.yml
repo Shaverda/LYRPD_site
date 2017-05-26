@@ -13,4 +13,5 @@ services:
       SHEET: 1jZJsbcq4TPHWTq_9J8DKlCn0FpqgdOZJBF7nbua70H0
       FOLDER: 0B3qV0KkMXsKxdEpXQ0pyaG1ZYWM
       GOOGLE_CREDENTIALS: /data/secret.json
+
     network_mode: "bridge"
