@@ -28,10 +28,11 @@
    		height: 150px;
    	}
     .legend_imgs {
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
     }
    	#legend {
+    text-align: center;
     background: #fff;
     padding: 10px;
     margin: 10px;
@@ -105,7 +106,7 @@
         var legend_div = document.createElement('div');
         legend_div.innerHTML = `<img class="legend_imgs" src="${icon.url}"> Pet Stop`;
         legend.appendChild(legend_div);
-        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legend);
 
     }
     </script>

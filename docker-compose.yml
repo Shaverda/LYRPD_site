@@ -9,8 +9,8 @@ services:
     ports:
       - "1234:5000"
     environment:
-      MAPS_KEY: your_google_maps_key
-      SHEET: google_sheet_with_business_info
-      FOLDER: folder_with_business_pictures
-      GOOGLE_CREDENTIALS: path_to_google_credentials_in_container
+      MAPS_KEY: AIzaSyArRK9f93LhRzxjXUDHhBv540kA77XpPhw
+      SHEET: 1jZJsbcq4TPHWTq_9J8DKlCn0FpqgdOZJBF7nbua70H0
+      FOLDER: 0B3qV0KkMXsKxdEpXQ0pyaG1ZYWM
+      GOOGLE_CREDENTIALS: "/data/secret.json"
     network_mode: "bridge"
