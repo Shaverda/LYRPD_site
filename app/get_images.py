@@ -6,6 +6,8 @@ import os
 from oauth2client.service_account import ServiceAccountCredentials
 from googleapiclient.http import MediaIoBaseDownload
 from apiclient import discovery
+from PIL import Image
+
 
 def get_env_vars(*names):
     missing = []
@@ -76,10 +78,27 @@ def download(drive, file_id, target):
 def download_new(drive, folder, last_update=None):
     updated = list(list_updated(drive, folder, last_update))
     for file in updated:
-        download(drive, file['id'], os.path.join('static/images', file['name']))
+        target = os.path.join('static/images', file['name'])
+        download(drive, file['id'], target)
+        crop(target)
+    
     if updated:
         return datetime.datetime.utcnow()
 
+
+def make_square(h, w):
+    if h <= w:
+        return ((w-h)/2, 0, w-(w-h)/2, h)
+    else:
+        return (0, (h-w)/2, w, h-(h-w)/2)
+
+    
+def crop(target):
+    print("Cropping")
+    img = Image.open(target)
+    img = img.crop(make_square(img.height, img.width))
+    img.save(target)
+    
 
 def download_updated(last_update=None):
     drive = get_drive()
