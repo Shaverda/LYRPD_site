@@ -21,11 +21,18 @@
         padding: 0;
     }
 
-  /*  .verticalCenter{
+    .frame{
+        height: 150px;
+        text-align: center;
+        font: 0/0 a;
+    }
+
+    .frame:before{
+         content: ' ';
         display: inline-block;
-        height:100%;
-        vertical-align: middle;
-    }*/
+        vertical-align: middle;  /* vertical alignment of the inline element */
+        height: 100%;
+    }
 
     .squareImg {
         width: 150px;
@@ -39,6 +46,8 @@
    	.info_img {
    		max-width: 100% !important;
         max-height: 100%;
+        vertical-align: middle;
+        display: inline-block;
    	}
     .legend_imgs {
         width: 20px;
@@ -121,9 +130,8 @@
                         }
                     });
                     var contentString = 
-                    	`<div class= 'squareImg'>
-                            <span class = 'verticalCenter'></span>
-                            <img class = "info_img" src="static/images/${element[4]}"></div>
+                    	`<div class= 'squareImg'><div class = 'frame'><span = 'helper'></span>
+                            <img class = "info_img" src="static/images/${element[4]}"></div></div>
                     	<div style='float:right; padding: 10px;'>
                     	<h2><a href="${element[1]}">${element[0]}</a></h2><hr>
                     	<h4>Activity:  <span class='notbold'>${element[3]}</span> </h4>
@@ -145,7 +153,6 @@
           <div style="text-align:left"><img class="legend_imgs" src="${paw.url}"> Participating Business</div>`;          
         legend.appendChild(legend_div);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legend);
-
     }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key={{maps_key}}&libraries=places&callback=initMap" async defer>
