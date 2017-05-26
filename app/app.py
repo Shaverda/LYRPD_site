@@ -67,5 +67,3 @@ def main():
         'index.html',
         maps_key=MAPS_KEY,
         data=json.dumps(data))
-
-

@@ -20,22 +20,35 @@
         margin: 0;
         padding: 0;
     }
+
+  /*  .verticalCenter{
+        display: inline-block;
+        height:100%;
+        vertical-align: middle;
+    }*/
+
+    .squareImg {
+        width: 150px;
+        height: 150px;
+        float: left;
+    }
+
    	.notbold {
    		font-weight:normal
    	}
    	.info_img {
-   		width: 150px;
-   		height: 150px;
+   		max-width: 100% !important;
+        max-height: 100%;
    	}
     .legend_imgs {
         width: 25px;
         height: 25px;
     }
    	#legend {
-    background: #fff;
-    padding: 10px;
-    margin: 10px;
-    border: 2px solid #000;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 2px solid #000;
   	}
     </style>
 </head>
@@ -87,7 +100,9 @@
                         }
                     });
                     var contentString = 
-                    	`<div style='float:left'><img class = "info_img" src="static/images/${element[4]}"></div>
+                    	`<div class= 'squareImg'>
+                            <span class = 'verticalCenter'></span>
+                            <img class = "info_img" src="static/images/${element[4]}"></div>
                     	<div style='float:right; padding: 10px;'>
                     	<h2><a href="${element[1]}">${element[0]}</a></h2><hr>
                     	<h4>Activity:  <span class='notbold'>${element[3]}</span> </h4>
@@ -109,7 +124,8 @@
 
     }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{maps_key}}&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{maps_key}}&libraries=places&callback=initMap" async defer>
+    </script>
 </body>
 
 </html>

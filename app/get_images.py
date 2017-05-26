@@ -80,7 +80,7 @@ def download_new(drive, folder, last_update=None):
     for file in updated:
         target = os.path.join('static/images', file['name'])
         download(drive, file['id'], target)
-        crop(target)
+        # crop(target)
     
     if updated:
         return datetime.datetime.utcnow()
