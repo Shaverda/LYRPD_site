@@ -2,6 +2,7 @@ import datetime
 import httplib2
 import io
 import os
+import sys
 
 from oauth2client.service_account import ServiceAccountCredentials
 from googleapiclient.http import MediaIoBaseDownload
@@ -80,7 +81,6 @@ def download_new(drive, folder, last_update=None):
     for file in updated:
         target = os.path.join('static/images', file['name'])
         download(drive, file['id'], target)
-        # crop(target)
     
     if updated:
         return datetime.datetime.utcnow()

@@ -5,6 +5,7 @@ import os
 import socket
 import json
 import httplib2
+import multiprocessing
 
 from flask import Flask, render_template, request, redirect, flash
 from flask import send_from_directory
@@ -47,7 +48,13 @@ def get_data(sheet):
     for record in records:
         yield [record['Business name'], record['Facebook URL'],
                record['Website'], record['Activity'], record['image name']]
-        
+
+
+def create_data_file():
+    data = list(get_data(sheet))
+    with open('data.json', 'w') as f:
+        json.dump(data, f)
+
 
 def update():
     global last_update
@@ -60,9 +67,39 @@ def update():
     return data
         
 
+def read_data():
+    try:
+        with open('data.json') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
+
+def read_images():
+    global last_update
+    
+    d = get_images.download_updated(last_update)
+    if d:
+        print('Refreshed images')
+        last_update = d
+    
+
+def read_everything():
+    while True:
+        create_data_file()
+        read_images()
+        time.sleep(5*60)
+
+
+def read_in_process():
+    reader = multiprocessing.Process(target=read_everything)
+    reader.start()
+
+read_in_process()
+
 @app.route('/')
 def main():
-    data = update()
+    data = read_data()
     return render_template(
         'index.html',
         maps_key=MAPS_KEY,
