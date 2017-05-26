@@ -73,6 +73,25 @@
 
         var infowindow = new google.maps.InfoWindow();
        
+       var paw = {
+         url: 'static/images/dog-paw.png',
+         scaledSize: new google.maps.Size(50, 60),
+         origin: new google.maps.Point(0, 0),
+         anchor: new google.maps.Point(25, 60)
+       };
+       var dog = {
+         url: 'static/images/dog-face.png',
+         scaledSize: new google.maps.Size(50, 60),
+         origin: new google.maps.Point(0, 0),
+         anchor: new google.maps.Point(25, 60)
+       };
+       var cat = {
+         url: 'static/images/cat-face.png',
+         scaledSize: new google.maps.Size(50, 60),
+         origin: new google.maps.Point(0, 0),
+         anchor: new google.maps.Point(25, 60)
+       };
+       
         data.forEach((element) => {
             console.log(element);
             var request = {
@@ -83,15 +102,16 @@
             var service = new google.maps.places.PlacesService(map);
             service.textSearch(request, callback);
 
-            icon = {
-                url: 'static/images/dog-paw.png',
-                scaledSize: new google.maps.Size(50, 60),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(25, 60)
-            };
-          
             function callback(results, status) {
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
+              if (status == google.maps.places.PlacesServiceStatus.OK) {
+                var icon;
+                if (element[5] == 'participating') {
+                  icon = paw;
+                } else if (element[5] == 'custom') {
+                  icon = dog;
+                } else {
+                  icon = cat;
+                }
                     var marker = new google.maps.Marker({
                       map: map,
                       icon: icon,
@@ -119,7 +139,10 @@
         });
         var legend = document.getElementById('legend');
         var legend_div = document.createElement('div');
-        legend_div.innerHTML = `<img class="legend_imgs" src="${icon.url}"> Pet Stop`;
+       legend_div.innerHTML =
+         `<div style="text-align:left"><img class="legend_imgs" src="${dog.url}"> Custom Pet Stop</div>
+          <div style="text-align:left"><img class="legend_imgs" src="${cat.url}"> Organic Pet Stop</div>
+          <div style="text-align:left"><img class="legend_imgs" src="${paw.url}"> Participating Business</div>`;          
         legend.appendChild(legend_div);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legend);
 

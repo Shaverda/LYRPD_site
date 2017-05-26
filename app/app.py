@@ -46,8 +46,9 @@ last_update = None
 def get_data(sheet):
     records = sheet.get_all_records()
     for record in records:
-        yield [record['Business name'], record['Facebook URL'],
-               record['Website'], record['Activity'], record['image name']]
+        yield [record.get('Business name', ''), record.get('Facebook URL', ''),
+               record.get('Website', ''), record.get('Activity', ''),
+               record.get('image name', ''), record.get('Category')]
 
 
 def create_data_file():
