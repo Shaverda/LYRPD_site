@@ -5,6 +5,7 @@
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://unpkg.com/blaze">
     <style>
     /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -60,6 +61,9 @@
         margin: 10px;
         border: 2px solid #000;
   	}
+     .c-text {
+       font-family: Verdana;
+     }
     </style>
 </head>
 
@@ -130,13 +134,24 @@
                         }
                     });
                     var contentString = 
-                    	`<div class= 'squareImg'><div class = 'frame'><span = 'helper'></span>
-                            <img class = "info_img" src="static/images/${element[4]}"></div></div>
-                    	<div style='float:right; padding: 10px;'>
-                    	<h2><a target="_blank" href="${element[1]}">${element[0]}</a></h2><hr>
-                    	<h4>Activity:  <span class='notbold'>${element[3]}</span> </h4>
-                    	<h4><a target="_blank" href="${element[2]}">Website</a></h4>
-                    	</div>`
+`
+<div class="o-container o-container--small c-text">
+<div class="o-grid">
+  <div class="o-grid__cell o-grid__cell--width-40">
+<div class="frame">
+<span = 'helper'></span>
+        <img class="o-image info_img" style="max-width: 100% !important" src="static/images/${element[4]}">
+  </div>
+</div>
+  <div class="o-grid__cell">
+    <h2 class="c-paragraph"><a style="text-decoration:none" target="_blank" href="${element[1]}">${element[0]}</a></h2>
+     <h4 class="c-paragraph">Activity: <span class='notbold'>${element[3]}</span> </h4>
+                    	 <h4><a class="c-link" target="_blank" href="${element[2]}">Website</a></h4>
+   
+  </div>
+</div>
+</div>
+`
                     	;
                     google.maps.event.addDomListener(marker, 'click', function() {
                         infowindow.setContent(contentString);
