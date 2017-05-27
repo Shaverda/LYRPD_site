@@ -29,7 +29,7 @@
     }
 
     .frame:before{
-         content: ' ';
+        content: ' ';
         display: inline-block;
         vertical-align: middle;  /* vertical alignment of the inline element */
         height: 100%;
@@ -41,29 +41,29 @@
         float: left;
     }
 
-   	.notbold {
-   		font-weight:normal
-   	}
-   	.info_img {
-   		max-width: 100% !important;
+    .notbold {
+        font-weight:normal
+    }
+    .info_img {
+        max-width: 100% !important;
         max-height: 100%;
         vertical-align: middle;
         display: inline-block;
-   	}
+    }
     .legend_imgs {
         width: 20px;
         height: 20px;
     }
-   	#legend {
+    #legend {
         text-align: center;
         background: #fff;
         padding: 10px;
         margin: 10px;
         border: 2px solid #000;
-  	}
-     .c-text {
-       font-family: Verdana;
-     }
+    }
+    .c-text {
+        font-family: Verdana;
+    }
     </style>
 </head>
 
@@ -71,7 +71,7 @@
     <div id="map"></div>
     <div id="legend"><h3>Legend</h3></div>
     <script>
-    var map, icon;
+    var map;
 
     var data = {{data|safe}};
 
@@ -86,24 +86,24 @@
 
         var infowindow = new google.maps.InfoWindow();
        
-       var paw = {
-         url: 'static/images/dog-paw.png',
-         scaledSize: new google.maps.Size(50, 60),
-         origin: new google.maps.Point(0, 0),
-         anchor: new google.maps.Point(25, 60)
-       };
-       var dog = {
-         url: 'static/images/dog-face.png',
-         scaledSize: new google.maps.Size(50, 60),
-         origin: new google.maps.Point(0, 0),
-         anchor: new google.maps.Point(25, 60)
-       };
-       var cat = {
-         url: 'static/images/cat-face.png',
-         scaledSize: new google.maps.Size(50, 60),
-         origin: new google.maps.Point(0, 0),
-         anchor: new google.maps.Point(25, 60)
-       };
+        var paw = {
+            url: 'static/images/dog-paw.png',
+            scaledSize: new google.maps.Size(50, 60),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(25, 60)
+        };
+        var dog = {
+            url: 'static/images/dog-face.png',
+            scaledSize: new google.maps.Size(50, 60),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(25, 60)
+        };
+        var cat = {
+            url: 'static/images/cat-face.png',
+            scaledSize: new google.maps.Size(50, 60),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(25, 60)
+        };
        
         data.forEach((element) => {
             console.log(element);
@@ -116,18 +116,18 @@
             service.textSearch(request, callback);
 
             function callback(results, status) {
-              if (status == google.maps.places.PlacesServiceStatus.OK) {
-                var icon;
-                if (element[5] == 'participating') {
-                  icon = paw;
-                } else if (element[5] == 'custom') {
-                  icon = dog;
-                } else {
-                  icon = cat;
-                }
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                    var icon;
+                    if (element[5] == 'participating') {
+                        icon = paw;
+                    } else if (element[5] == 'custom') {
+                        icon = dog;
+                    } else {
+                        icon = cat;
+                    };
                     var marker = new google.maps.Marker({
-                      map: map,
-                      icon: icon,
+                        map: map,
+                        icon: icon,
                         place: {
                             placeId: results[0].place_id,
                             location: results[0].geometry.location
@@ -136,20 +136,19 @@
                     var contentString = 
 `
 <div class="o-container o-container--small c-text">
-<div class="o-grid">
-  <div class="o-grid__cell o-grid__cell--width-40">
-<div class="frame">
-<span = 'helper'></span>
+  <div class="o-grid">
+    <div class="o-grid__cell o-grid__cell--width-40">
+      <div class="frame">
+        <span = 'helper'></span>
         <img class="o-image info_img" style="max-width: 100% !important" src="static/images/${element[4]}">
+      </div>
+    </div>
+    <div class="o-grid__cell">
+      <h2 class="c-paragraph"><a style="text-decoration:none" target="_blank" href="${element[1]}">${element[0]}</a></h2>
+      <h4 class="c-paragraph">Activity: <span class='notbold'>${element[3]}</span> </h4>
+      <h4><a class="c-link" target="_blank" href="${element[2]}">Website</a></h4>
+    </div>
   </div>
-</div>
-  <div class="o-grid__cell">
-    <h2 class="c-paragraph"><a style="text-decoration:none" target="_blank" href="${element[1]}">${element[0]}</a></h2>
-     <h4 class="c-paragraph">Activity: <span class='notbold'>${element[3]}</span> </h4>
-                    	 <h4><a class="c-link" target="_blank" href="${element[2]}">Website</a></h4>
-   
-  </div>
-</div>
 </div>
 `
                     	;
@@ -162,10 +161,10 @@
         });
         var legend = document.getElementById('legend');
         var legend_div = document.createElement('div');
-       legend_div.innerHTML =
-         `<div style="text-align:left"><img class="legend_imgs" src="${dog.url}"> Custom Pet Stop</div>
-          <div style="text-align:left"><img class="legend_imgs" src="${cat.url}"> Organic Pet Stop</div>
-          <div style="text-align:left"><img class="legend_imgs" src="${paw.url}"> Participating Business</div>`;          
+        legend_div.innerHTML =
+            `<div style="text-align:left"><img class="legend_imgs" src="${dog.url}"> Custom Pet Stop</div>
+             <div style="text-align:left"><img class="legend_imgs" src="${cat.url}"> Organic Pet Stop</div>
+             <div style="text-align:left"><img class="legend_imgs" src="${paw.url}"> Participating Business</div>`;          
         legend.appendChild(legend_div);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legend);
     }
