@@ -22,6 +22,9 @@ We'd love to have an interactive map that shows where all of the pet stops are, 
     $ docker-compose up
     ```
 
+4. Access the site at http://localhost:1234
+
+
 # LICENSE
 
 The "Love Your Rescue Pet Day" code is licensed under the terms of the GNU Affero General Public License.
