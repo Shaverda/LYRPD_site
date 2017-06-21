@@ -156,6 +156,8 @@
                         infowindow.setContent(contentString);
                         infowindow.open(map, marker);
                     });
+                } else {
+                    console.log(element[0] + " not found with status " + status);
                 }
             }
         });
