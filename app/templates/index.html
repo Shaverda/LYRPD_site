@@ -107,34 +107,23 @@
        
         data.forEach((element) => {
             console.log(element);
-            var request = {
-                location: map.getCenter(),
-                radius: '500',
-                query: element[0]
+            var icon;
+            if (element[5] == 'participating') {
+                icon = paw;
+            } else if (element[5] == 'Featured Sponsor') {
+                icon = dog;
+            } else {
+                icon = cat;
             };
-            var service = new google.maps.places.PlacesService(map);
-            service.textSearch(request, callback);
-
-            function callback(results, status) {
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
-                    var icon;
-                    if (element[5] == 'participating') {
-                        icon = paw;
-                    } else if (element[5] == 'custom') {
-                        icon = dog;
-                    } else {
-                        icon = cat;
-                    };
-                    console.log("location: " + results[0].geometry.location + typeof(results[0].geometry.location));
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        icon: icon,
-                        place: {
-                            placeId: results[0].place_id,
-                            location: results[0].geometry.location
-                        }
-                    });
-                    var contentString = 
+            var marker = new google.maps.Marker({
+                map: map,
+                icon: icon,
+                place: {
+                    placeId: element[8],
+                    location: (element[6], element[7])
+                }
+            });
+            var contentString = 
 `
 <div class="o-container o-container--small c-text">
   <div class="o-grid">
@@ -146,27 +135,23 @@
     </div>
     <div class="o-grid__cell">
       <h2 class="c-paragraph"><a style="text-decoration:none" target="_blank" href="${element[1]}">${element[0]}</a></h2>
-      <h4 class="c-paragraph">Activity: <span class='notbold'>${element[3]}</span> </h4>
-      <h4><a class="c-link" target="_blank" href="${element[2]}">Website</a></h4>
+      <h4 class="c-paragraph"> <span class='notbold'>${element[3]}</span> </h4>
+      <h4><a class="c-link" target="_blank" href="${element[2]}">Visit their website!</a></h4>
     </div>
   </div>
 </div>
-`
-                    	;
-                    google.maps.event.addDomListener(marker, 'click', function() {
-                        infowindow.setContent(contentString);
-                        infowindow.open(map, marker);
-                    });
-                } else {
-                    console.log(element[0] + " not found with status " + status);
-                }
+`;
+            google.maps.event.addDomListener(marker, 'click', function() {
+                infowindow.setContent(contentString);
+                infowindow.open(map, marker);
+            });
             }
         });
         var legend = document.getElementById('legend');
         var legend_div = document.createElement('div');
         legend_div.innerHTML =
-            `<div style="text-align:left"><img class="legend_imgs" src="${dog.url}"> Custom Pet Stop</div>
-             <div style="text-align:left"><img class="legend_imgs" src="${cat.url}"> Organic Pet Stop</div>
+            `<div style="text-align:left"><img class="legend_imgs" src="${dog.url}"> Featured Sponsor</div>
+             <div style="text-align:left"><img class="legend_imgs" src="${cat.url}"> Event Sponsor -</div>
              <div style="text-align:left"><img class="legend_imgs" src="${paw.url}"> Participating Business</div>`;          
         legend.appendChild(legend_div);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legend);
