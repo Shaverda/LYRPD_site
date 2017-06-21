@@ -39,6 +39,7 @@ pyasn1-modules==0.0.8
 Pygments==2.2.0
 pyparsing==2.2.0
 python-dateutil==2.6.0
+python-google-places==1.4.0
 pyzmq==16.0.2
 qtconsole==4.3.0
 rsa==3.4.2

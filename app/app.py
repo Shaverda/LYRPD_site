@@ -10,6 +10,7 @@ import multiprocessing
 from flask import Flask, render_template, request, redirect, flash
 from flask import send_from_directory
 import pygsheets
+from googleplaces import GooglePlaces
 
 import get_images
 
@@ -31,6 +32,7 @@ MAPS_KEY, SHEET, GOOGLE_CREDENTIALS = get_env_vars(
 
 
 app = Flask(__name__)
+google_places = GooglePlaces(MAPS_KEY)
 
 
 def get_sheet(sheet_id):
@@ -43,12 +45,27 @@ sheet = get_sheet(SHEET)
 last_update = None
 
 
+def get_geo(name):
+    time.sleep(0.1)  # sleep to avoid over quote in google places
+    query_result = google_places.text_search(
+        location="Austin, Texas", radius=500, query=name)
+    if len(query_result.places) > 1:
+        print("Warning: got more than one place for '{0}'".format(name))
+    if len(query_result.places) == 0:
+        print("Got no results!")
+        return '', '', ''
+    place = query_result.places[0]
+    return str(place.geo_location['lat']), str(place.geo_location['lng']), place.place_id
+
+
 def get_data(sheet):
     records = sheet.get_all_records()
     for record in records:
         yield [record.get('Business name', ''), record.get('Facebook URL', ''),
-               record.get('Website', ''), record.get('Activity', ''),
-               record.get('image name', ''), record.get('Category')]
+               record.get('Website', ''), record.get('Info', ''),
+               record.get('image name', ''), record.get('Category'),
+               *get_geo(record.get('Business name'))
+               ]
 
 
 def create_data_file():

@@ -125,6 +125,7 @@
                     } else {
                         icon = cat;
                     };
+                    console.log("location: " + results[0].geometry.location + typeof(results[0].geometry.location));
                     var marker = new google.maps.Marker({
                         map: map,
                         icon: icon,
