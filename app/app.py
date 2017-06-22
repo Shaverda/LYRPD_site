@@ -119,10 +119,18 @@ def read_everything():
 
 
 def read_in_process():
-    reader = multiprocessing.Process(target=read_everything)
+    reader = multiprocessing.Process(target=read_everything, name='reader')
     reader.start()
 
-read_in_process()
+
+def start_reader():
+    children = multiprocessing.active_children()
+    for child in children:
+        if child.name == 'reader':
+            return
+    read_in_process()
+
+start_reader()
 
 @app.route('/')
 def main():
