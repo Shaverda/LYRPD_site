@@ -118,10 +118,7 @@
             var marker = new google.maps.Marker({
                 map: map,
                 icon: icon,
-                place: {
-                    placeId: element[8],
-                    location: (element[6], element[7])
-                }
+                position: {lat: parseFloat(element[6]), lng: parseFloat(element[7])}
             });
             var contentString = 
 `
@@ -145,8 +142,8 @@
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
             });
-            }
-        });
+            });
+
         var legend = document.getElementById('legend');
         var legend_div = document.createElement('div');
         legend_div.innerHTML =

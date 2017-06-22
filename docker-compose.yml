@@ -9,7 +9,7 @@ services:
     ports:
       - "1234:5000"
     environment:
-      MAPS_KEY: AIzaSyArRK9f93LhRzxjXUDHhBv540kA77XpPhw
+      MAPS_KEY: AIzaSyC82g15eZQf34oF5EALKdNyOy2V2R4nbug
       SHEET: 1jZJsbcq4TPHWTq_9J8DKlCn0FpqgdOZJBF7nbua70H0
       FOLDER: 0B3qV0KkMXsKxdEpXQ0pyaG1ZYWM
       GOOGLE_CREDENTIALS: /data/secret.json
