@@ -48,7 +48,7 @@ def get_picture(drive, folder, name):
 
 def list_updated(drive, folder, since=None):
     if since is None:
-        since = datetime.datetime.fromtimestamp(0)
+        since = datetime.datetime(1970, 1, 1)
     q = "'{FOLDER}' in parents and modifiedTime > '{SINCE}'".format(
         FOLDER=folder,
         SINCE=since.isoformat())

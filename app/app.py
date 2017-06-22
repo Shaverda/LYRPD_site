@@ -4,6 +4,8 @@ import time
 import os
 import socket
 import json
+import traceback
+
 import httplib2
 import multiprocessing
 
@@ -11,7 +13,7 @@ import multiprocessing
 from flask import Flask, render_template, request, redirect, flash
 from flask import send_from_directory
 import pygsheets
-from googleplaces import GooglePlaces
+from googleplaces import GooglePlaces, GooglePlacesError
 
 import get_images
 
@@ -47,16 +49,22 @@ last_update = None
 
 
 def get_geo(name):
-    time.sleep(0.1)  # sleep to avoid over quote in google places
-    query_result = google_places.text_search(
-        location="Austin, Texas", radius=500, query=name)
-    if len(query_result.places) > 1:
-        print("Warning: got more than one place for '{0}'".format(name))
-    if len(query_result.places) == 0:
-        print("Got no results!")
+    time.sleep(0.5)  # sleep to avoid over quote in google places
+    try:
+        print('Getting geo location for {0}'.format(name), file=sys.stderr)
+        query_result = google_places.text_search(
+            location="Austin, Texas", radius=500, query=name)
+        if len(query_result.places) > 1:
+            print("Warning: got more than one place for '{0}'".format(name))
+        if len(query_result.places) == 0:
+            print("Got no results!")
+            return '', '', ''
+        place = query_result.places[0]
+        return str(place.geo_location['lat']), str(place.geo_location['lng']), place.place_id
+    except GooglePlacesError:
+        print("Got an error from google places API:")
+        traceback.print_exc()
         return '', '', ''
-    place = query_result.places[0]
-    return str(place.geo_location['lat']), str(place.geo_location['lng']), place.place_id
 
 
 def get_data(sheet):
@@ -65,7 +73,7 @@ def get_data(sheet):
         yield [record.get('Business name', ''), record.get('Facebook URL', ''),
                record.get('Website', ''), record.get('Info', ''),
                record.get('image name', ''), record.get('Category'),
-               *get_geo(record.get('Business name'))
+               *get_geo(record.get('Geo Code'))
                ]
 
 
