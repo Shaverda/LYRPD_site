@@ -15,4 +15,5 @@ EXPOSE 5000
 WORKDIR /app
 ENV LANG=C.UTF-8
 ENV FLASK_APP=/app/app.py
-CMD /lyrpd/bin/flask run --host 0.0.0.0 --port 5000 --reload
+ENV PYTHONUNBUFFERED=1
+CMD /lyrpd/bin/flask run --host 0.0.0.0 --port 5000
