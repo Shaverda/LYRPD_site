@@ -115,8 +115,12 @@ def read_images():
 
 def read_everything():
     while True:
-        create_data_file()
-        read_images()
+        # noinspection PyBroadException
+        try:
+            create_data_file()
+            read_images()
+        except Exception:
+            traceback.print_exc()
         time.sleep(5*60)
 
 
