@@ -12,6 +12,7 @@ import multiprocessing
 
 from flask import Flask, render_template, request, redirect, flash
 from flask import send_from_directory
+from flask_cors import CORS
 import pygsheets
 from googleplaces import GooglePlaces, GooglePlacesError
 
@@ -35,6 +36,7 @@ MAPS_KEY, SHEET, GOOGLE_CREDENTIALS = get_env_vars(
 
 
 app = Flask(__name__)
+CORS(app)
 google_places = GooglePlaces(MAPS_KEY)
 
 
