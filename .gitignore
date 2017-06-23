@@ -60,3 +60,4 @@ typings/
 __pycache__
 secret.json
 .DS_Store
+*.ipynb
