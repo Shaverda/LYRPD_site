@@ -61,3 +61,5 @@ __pycache__
 secret.json
 .DS_Store
 *.ipynb
+=======
+docker-compose.yml
